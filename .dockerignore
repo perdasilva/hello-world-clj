@@ -1,0 +1,11 @@
+target/
+.cpcache/
+.git/
+.github/
+test/
+specs/
+.claude/
+.gitignore
+.dockerignore
+CLAUDE.md
+Makefile

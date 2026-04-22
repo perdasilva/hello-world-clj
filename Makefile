@@ -1,4 +1,4 @@
-.PHONY: run test clean help
+.PHONY: run test clean help docker-build docker-run
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-15s %s\n", $$1, $$2}'
@@ -11,3 +11,9 @@ test: ## Run all tests (example-based and generative)
 
 clean: ## Remove build caches
 	rm -rf .cpcache target
+
+docker-build: ## Build the Docker image
+	docker build -t hello-world .
+
+docker-run: ## Run the app in Docker
+	docker run --rm hello-world

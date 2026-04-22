@@ -32,8 +32,14 @@ clj -M:test
 # Clean build caches
 make clean
 
+# Build uberjar
+clj -T:build uber
+java -jar target/hello-world.jar
+
 # Docker build and run
+make docker-build
 docker build -t hello-world .
+make docker-run
 docker run --rm hello-world
 ```
 

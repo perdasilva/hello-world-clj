@@ -1,6 +1,7 @@
 (ns hello.core
   (:require [hello.system :as system]
-            [hello.component.greeter :as greeter]))
+            [hello.component.greeter :as greeter])
+  (:gen-class))
 
 (defn -main [& args]
   (let [sys (-> [[:greeter (greeter/create-greeter)]]

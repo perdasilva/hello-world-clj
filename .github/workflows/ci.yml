@@ -30,3 +30,6 @@ jobs:
           restore-keys: deps-
 
       - run: clj -M:test
+
+      - name: Docker build
+        run: docker build -t hello-world .

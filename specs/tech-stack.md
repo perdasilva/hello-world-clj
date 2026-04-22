@@ -19,6 +19,12 @@ None beyond `org.clojure/clojure`. This project uses only Clojure core.
 | `clojure.test` | Unit testing (built into Clojure core) |
 | `org.clojure/test.check` | Generative (property-based) testing |
 
+### Build
+
+| Dependency | Purpose |
+|---|---|
+| `io.github.clojure/tools.build` | Uberjar compilation (build-time only) |
+
 ## Architecture Pattern
 
 This project follows Stuart Sierra's Component structural pattern without the external library:
@@ -35,6 +41,7 @@ This is implemented with plain Clojure (protocols, maps, functions) — no `com.
 ```
 hello-world/
 ├── deps.edn              # Dependencies and aliases
+├── build.clj             # Uberjar build script (tools.build)
 ├── src/
 │   └── hello/
 │       ├── core.clj      # -main entry point, system assembly
@@ -48,7 +55,8 @@ hello-world/
 │       └── component/
 │           └── greeter_test.clj # Unit + generative tests for greeter
 ├── Makefile              # Developer convenience targets
-├── Dockerfile            # Container build
+├── Dockerfile            # Multi-stage container build
+├── .dockerignore         # Docker build context exclusions
 ├── .github/
 │   └── workflows/
 │       └── ci.yml        # GitHub Actions CI
@@ -66,9 +74,9 @@ hello-world/
 | Run with arg | `clj -M -m hello.core "Name"` | `make run NAME=Name` |
 | Test | `clj -M:test` | `make test` |
 | Clean caches | `rm -rf .cpcache target` | `make clean` |
-| Format check | `clj -M:fmt-check` (if configured) | — |
-| Docker build | `docker build -t hello-world .` | — |
-| Docker run | `docker run --rm hello-world` | — |
+| Uberjar build | `clj -T:build uber` | — |
+| Docker build | `docker build -t hello-world .` | `make docker-build` |
+| Docker run | `docker run --rm hello-world` | `make docker-run` |
 
 ## Check Command
 
