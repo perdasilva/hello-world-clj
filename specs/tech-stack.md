@@ -17,6 +17,7 @@ None beyond `org.clojure/clojure`. This project uses only Clojure core.
 | Dependency | Purpose |
 |---|---|
 | `clojure.test` | Unit testing (built into Clojure core) |
+| `org.clojure/test.check` | Generative (property-based) testing |
 
 ## Architecture Pattern
 
@@ -42,9 +43,11 @@ hello-world/
 │           └── greeter.clj # Greeter component
 ├── test/
 │   └── hello/
+│       ├── test_runner.clj   # Test runner entry point
 │       ├── core_test.clj     # Integration tests for the full system
 │       └── component/
-│           └── greeter_test.clj # Unit tests for greeter component
+│           └── greeter_test.clj # Unit + generative tests for greeter
+├── Makefile              # Developer convenience targets
 ├── Dockerfile            # Container build
 ├── .github/
 │   └── workflows/
@@ -57,14 +60,15 @@ hello-world/
 
 ## Build & Run Commands
 
-| Action | Command |
-|---|---|
-| Run | `clj -M -m hello.core` |
-| Run with arg | `clj -M -m hello.core "Name"` |
-| Test | `clj -M:test` |
-| Format check | `clj -M:fmt-check` (if configured) |
-| Docker build | `docker build -t hello-world .` |
-| Docker run | `docker run --rm hello-world` |
+| Action | Command | Make shortcut |
+|---|---|---|
+| Run | `clj -M -m hello.core` | `make run` |
+| Run with arg | `clj -M -m hello.core "Name"` | `make run NAME=Name` |
+| Test | `clj -M:test` | `make test` |
+| Clean caches | `rm -rf .cpcache target` | `make clean` |
+| Format check | `clj -M:fmt-check` (if configured) | — |
+| Docker build | `docker build -t hello-world .` | — |
+| Docker run | `docker run --rm hello-world` | — |
 
 ## Check Command
 

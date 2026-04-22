@@ -14,13 +14,19 @@ A minimal Clojure CLI application that prints "Hello, World!" — a learning exe
 
 ```bash
 # Run the app
+make run
 clj -M -m hello.core
 
 # Run with a name argument
+make run NAME=Clojure
 clj -M -m hello.core "Clojure"
 
 # Run tests
+make test
 clj -M:test
+
+# Clean build caches
+make clean
 
 # Docker build and run
 docker build -t hello-world .
