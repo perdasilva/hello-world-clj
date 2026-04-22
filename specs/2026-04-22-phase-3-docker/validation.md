@@ -58,12 +58,12 @@ make docker-run
 
 ## Acceptance Criteria
 
-- [ ] `deps.edn` has a `:build` alias with `org.clojure/tools.build`
+- [ ] `deps.edn` has a `:build` alias with `io.github.clojure/tools.build`
 - [ ] `build.clj` exists and `clj -T:build uber` produces `target/hello-world.jar`
 - [ ] `java -jar target/hello-world.jar` prints `Hello, World!`
 - [ ] `java -jar target/hello-world.jar "Test"` prints `Hello, Test!`
 - [ ] `src/hello/core.clj` includes `(:gen-class)` in the `ns` form
-- [ ] `Dockerfile` exists with a multi-stage build (JDK build, JRE runtime)
+- [ ] `Dockerfile` exists with a three-stage build (JDK uberjar, GraalVM native-image, scratch runtime)
 - [ ] `.dockerignore` exists and excludes build artifacts and non-essential files
 - [ ] `docker build -t hello-world .` succeeds
 - [ ] `docker run --rm hello-world` prints `Hello, World!`

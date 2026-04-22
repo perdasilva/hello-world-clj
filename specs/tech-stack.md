@@ -60,6 +60,10 @@ hello-world/
 ├── .github/
 │   └── workflows/
 │       └── ci.yml        # GitHub Actions CI
+├── .gitignore            # Git ignore rules
+├── README.md             # Project documentation
+├── assets/
+│   └── demo.gif          # Terminal demo animation
 ├── specs/                # SDD governing specs
 ├── .claude/
 │   └── commands/         # SDD workflow commands

@@ -86,5 +86,6 @@ $ make help
 
 - **Simplicity first** — prefer the simplest solution that works
 - **Zero external deps** — only Clojure core and standard JVM tooling
+- **Component pattern** — explicit lifecycle and dependency wiring with plain Clojure
 - **Learn by doing** — each phase introduces one new concept
 - **Reproducible builds** — clone, build, test, run with standard tools

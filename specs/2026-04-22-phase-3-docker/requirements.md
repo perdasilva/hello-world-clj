@@ -4,7 +4,7 @@
 
 ### Uberjar build
 
-- Add `org.clojure/tools.build` as a build dependency in `deps.edn` under a `:build` alias
+- Add `io.github.clojure/tools.build` as a build dependency in `deps.edn` under a `:build` alias
 - Create `build.clj` in the project root with:
   - A `uber` function that compiles the project and produces a standalone uberjar at `target/hello-world.jar`
   - The uberjar must set `hello.core` as the main class

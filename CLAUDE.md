@@ -50,7 +50,7 @@ This project uses spec-driven development with phased delivery:
 1. `/sdd-plan-next-phase` — Plan the next phase from the roadmap, create branch and spec
 2. `/sdd-implement` — Implement the current phase following its spec
 3. `/sdd-review` — Review changes for quality and spec consistency
-4. `/sdd-ship` — Verify, commit, and create a PR
+4. `/sdd-ship` — Verify, commit, and merge to main
 
 Governing specs live in `specs/`:
 - `mission.md` — Goals, non-goals, design principles

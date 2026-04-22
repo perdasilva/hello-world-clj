@@ -14,7 +14,7 @@ A minimal Clojure CLI application that prints "Hello, World!" — built as a lea
 
 - No web server, REST API, or HTTP endpoints
 - No database or persistence layer
-- No third-party dependencies beyond Clojure core
+- No third-party runtime dependencies beyond Clojure core
 - No ClojureScript or browser/Node.js targets
 - No complex CLI argument parsing libraries
 

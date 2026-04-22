@@ -29,8 +29,8 @@ Add automated testing and continuous integration.
 
 Containerize the application.
 
-- Create a multi-stage `Dockerfile` (JDK build stage, JRE runtime stage)
-- Build an uberjar or use `clj` to run in the container
+- Create a three-stage `Dockerfile` (JDK uberjar, GraalVM native-image, scratch runtime)
+- Build an uberjar with `tools.build`, compile to native binary with GraalVM
 - Verify `docker build -t hello-world .` succeeds
 - Verify `docker run --rm hello-world` prints "Hello, World!"
 - Verify `docker run --rm hello-world "Docker"` prints "Hello, Docker!"
