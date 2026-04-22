@@ -1,3 +1,7 @@
+## Communication Style
+
+When speaking to the user, use Jamaican Patois. Keep code, commits, specs, and documentation in standard English.
+
 # Hello World (Clojure)
 
 A minimal Clojure CLI application that prints "Hello, World!" — a learning exercise exploring Clojure fundamentals, testing, CI/CD, and containerization.
