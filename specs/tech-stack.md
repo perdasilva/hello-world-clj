@@ -55,7 +55,7 @@ hello-world/
 │       └── component/
 │           └── greeter_test.clj # Unit + generative tests for greeter
 ├── Makefile              # Developer convenience targets
-├── Dockerfile            # Multi-stage container build
+├── Dockerfile            # GraalVM native-image container build
 ├── .dockerignore         # Docker build context exclusions
 ├── .github/
 │   └── workflows/
@@ -94,5 +94,9 @@ clj -M:test
 
 ## Containerization
 
-- **Base image:** Eclipse Temurin JDK 21 (build) / JRE 21 (runtime)
-- **Multi-stage build:** compile in build stage, copy to minimal runtime image
+- **Three-stage build:**
+  1. Eclipse Temurin JDK 21 (Alpine) — Clojure uberjar compilation
+  2. GraalVM native-image-community 21 (muslib) — native binary compilation
+  3. `scratch` — static binary only, no OS layer
+- **GraalVM native-image** produces a statically-linked binary (~5MB image)
+- **`--initialize-at-build-time`** required for Clojure AOT compatibility

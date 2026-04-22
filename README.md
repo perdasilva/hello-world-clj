@@ -27,6 +27,8 @@ make test
 
 ## Docker
 
+The Docker image uses a three-stage build: Clojure uberjar compilation, GraalVM native-image compilation, then a `scratch` runtime with just the static binary (~5MB total).
+
 ```bash
 # Build the image
 make docker-build
@@ -55,7 +57,7 @@ hello-world/
 │   ├── core_test.clj       # Integration tests
 │   └── component/
 │       └── greeter_test.clj # Unit + generative tests
-├── Dockerfile              # Multi-stage build (JDK 21 / JRE 21)
+├── Dockerfile              # GraalVM native-image build (~5MB image)
 └── .github/workflows/
     └── ci.yml              # GitHub Actions CI
 ```

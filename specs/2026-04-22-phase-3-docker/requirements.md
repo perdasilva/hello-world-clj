@@ -14,16 +14,20 @@
 
 ### Dockerfile
 
-- Multi-stage build with two stages:
-  - **Stage 1 — build:**
-    - Base image: `eclipse-temurin:21-jdk`
+- Three-stage build:
+  - **Stage 1 — uberjar:**
+    - Base image: `eclipse-temurin:21-jdk-alpine`
     - Install Clojure CLI tools
     - Copy `deps.edn` and `build.clj` first, download dependencies (layer caching)
     - Copy `src/` and build the uberjar
-  - **Stage 2 — runtime:**
-    - Base image: `eclipse-temurin:21-jre`
-    - Copy the uberjar from the build stage
-    - Set `ENTRYPOINT ["java", "-jar", "hello-world.jar"]` so arguments are passed through
+  - **Stage 2 — native-image:**
+    - Base image: `ghcr.io/graalvm/native-image-community:21-muslib`
+    - Compile uberjar to a statically-linked native binary with `--static --libc=musl`
+    - Use `--initialize-at-build-time` for Clojure AOT compatibility
+  - **Stage 3 — runtime:**
+    - Base image: `scratch` (empty — no OS layer)
+    - Copy only the native binary
+    - Set `ENTRYPOINT ["/hello-world"]` so arguments are passed through
 - Use `.dockerignore` to exclude unnecessary files from the build context
 
 ### Docker run behavior
@@ -63,7 +67,8 @@
 
 ## Technical Decisions (from tech-stack.md)
 
-- Build image: Eclipse Temurin JDK 21
-- Runtime image: Eclipse Temurin JRE 21
+- Build image: Eclipse Temurin JDK 21 (Alpine) for uberjar, GraalVM 21 (muslib) for native-image
+- Runtime image: `scratch` (static binary, no OS layer, ~5MB total)
 - `tools.build` is the official Clojure build library for producing uberjars
+- GraalVM `native-image` with `--static --libc=musl` produces a fully self-contained binary
 - `ENTRYPOINT` (not `CMD`) so `docker run` arguments pass through to `-main`
