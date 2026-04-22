@@ -8,4 +8,6 @@ specs/
 .gitignore
 .dockerignore
 CLAUDE.md
+README.md
 Makefile
+assets/

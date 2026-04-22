@@ -1,6 +1,7 @@
 .cpcache/
 target/
 *.jar
+*.cast
 .nrepl-port
 .lsp/
 .clj-kondo/

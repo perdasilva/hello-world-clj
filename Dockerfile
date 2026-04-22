@@ -1,21 +1,29 @@
-FROM eclipse-temurin:21-jdk AS build
+FROM eclipse-temurin:21-jdk-alpine AS build
 
-RUN apt-get update && \
-    apt-get install -y curl rlwrap && \
-    curl -L https://download.clojure.org/install/linux-install.sh | bash && \
-    rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache curl bash && \
+    curl -L https://download.clojure.org/install/linux-install.sh | bash
 
 WORKDIR /app
 
 COPY deps.edn build.clj ./
-RUN clj -P && clj -T:build uber || true
+RUN clojure -P && clojure -T:build uber || true
 
 COPY src/ src/
-RUN clj -T:build uber
+RUN clojure -T:build uber
 
-FROM eclipse-temurin:21-jre
+FROM ghcr.io/graalvm/native-image-community:21-muslib AS native
 
 WORKDIR /app
 COPY --from=build /app/target/hello-world.jar hello-world.jar
 
-ENTRYPOINT ["java", "-jar", "hello-world.jar"]
+RUN native-image -jar hello-world.jar \
+    --initialize-at-build-time \
+    --no-fallback \
+    --static --libc=musl \
+    -o hello-world
+
+FROM scratch
+
+COPY --from=native /app/hello-world /hello-world
+
+ENTRYPOINT ["/hello-world"]
